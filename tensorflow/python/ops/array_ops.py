@@ -528,7 +528,7 @@ def broadcast_static_shape(shape_x, shape_y):
   tensors of shapes `shape_x` and `shape_y`.
 
   For example, if shape_x is `TensorShape([1, 2, 3])` and shape_y is
-  `TensorShape([5, 1, 3])`, the result is a TensorShape whose value is 
+  `TensorShape([5, 1, 3])`, the result is a TensorShape whose value is
   `TensorShape([5, 2, 3])`.
 
   This is useful when validating the result of a broadcasting operation when the
