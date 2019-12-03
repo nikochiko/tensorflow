@@ -330,21 +330,21 @@ def random_flip_up_down(image, seed=None):
 
   Example usage:
 
-    Randomly flip a single image.
-    >>> import numpy as np
+  Randomly flip a single image.
+  >>> import numpy as np
 
-    >>> image = np.array([[[1], [2]], [[3], [4]]])
-    >>> tf.image.random_flip_up_down(image, 3).numpy().tolist()
-    [[[3], [4]], [[1], [2]]]
+  >>> image = np.array([[[1], [2]], [[3], [4]]])
+  >>> tf.image.random_flip_up_down(image, 3).numpy().tolist()
+  [[[3], [4]], [[1], [2]]]
 
-    Randomly flip multiple images.
-    >>> images = np.array(
-    ... [
-    ...     [[[1], [2]], [[3], [4]]],
-    ...     [[[5], [6]], [[7], [8]]]
-    ... ])
-    >>> tf.image.random_flip_up_down(images, 4).numpy().tolist()
-    [[[[3], [4]], [[1], [2]]], [[[5], [6]], [[7], [8]]]]
+  Randomly flip multiple images.
+  >>> images = np.array(
+  ... [
+  ...     [[[1], [2]], [[3], [4]]],
+  ...     [[[5], [6]], [[7], [8]]]
+  ... ])
+  >>> tf.image.random_flip_up_down(images, 4).numpy().tolist()
+  [[[[3], [4]], [[1], [2]]], [[[5], [6]], [[7], [8]]]]
 
   Args:
     image: 4-D Tensor of shape `[batch, height, width, channels]` or 3-D Tensor
@@ -354,6 +354,7 @@ def random_flip_up_down(image, seed=None):
 
   Returns:
     A tensor of the same type and shape as `image`.
+  
   Raises:
     ValueError: if the shape of `image` not supported.
   """
@@ -370,21 +371,22 @@ def random_flip_left_right(image, seed=None):
   independent of other images.
 
   Example usage:
-    Randomly flip a single image.
-    >>> import numpy as np
+  
+  Randomly flip a single image.
+  >>> import numpy as np
 
-    >>> image = np.array([[[1], [2]], [[3], [4]]])
-    >>> tf.image.random_flip_left_right(image, 5).numpy().tolist()
-    [[[2], [1]], [[4], [3]]]
+  >>> image = np.array([[[1], [2]], [[3], [4]]])
+  >>> tf.image.random_flip_left_right(image, 5).numpy().tolist()
+  [[[2], [1]], [[4], [3]]]
 
-    Randomly flip multiple images.
-    >>> images = np.array(
-    ... [
-    ...     [[[1], [2]], [[3], [4]]],
-    ...     [[[5], [6]], [[7], [8]]]
-    ... ])
-    >>> tf.image.random_flip_left_right(images, 6).numpy().tolist()
-    [[[[2], [1]], [[4], [3]]], [[[5], [6]], [[7], [8]]]]
+  Randomly flip multiple images.
+  >>> images = np.array(
+  ... [
+  ...     [[[1], [2]], [[3], [4]]],
+  ...     [[[5], [6]], [[7], [8]]]
+  ... ])
+  >>> tf.image.random_flip_left_right(images, 6).numpy().tolist()
+  [[[[2], [1]], [[4], [3]]], [[[5], [6]], [[7], [8]]]]
 
   Args:
     image: 4-D Tensor of shape `[batch, height, width, channels]` or 3-D Tensor
@@ -453,7 +455,7 @@ def flip_left_right(image):
 
   Outputs the contents of `image` flipped along the width dimension.
 
-  See also `reverse()`.
+  See also `tf.reverse`.
 
   Args:
     image: 4-D Tensor of shape `[batch, height, width, channels]` or 3-D Tensor
@@ -474,7 +476,7 @@ def flip_up_down(image):
 
   Outputs the contents of `image` flipped along the height dimension.
 
-  See also `reverse()`.
+  See also `tf.reverse`.
 
   Args:
     image: 4-D Tensor of shape `[batch, height, width, channels]` or 3-D Tensor
@@ -494,7 +496,7 @@ def _flip(image, flip_index, scope_name):
 
   Outputs the contents of `image` flipped along the dimension `flip_index`.
 
-  See also `reverse()`.
+  See also `tf.reverse`.
 
   Args:
     image: 4-D Tensor of shape `[batch, height, width, channels]` or 3-D Tensor
@@ -522,16 +524,21 @@ def _flip(image, flip_index, scope_name):
 
 @tf_export('image.rot90')
 def rot90(image, k=1, name=None):
-  """Rotate image(s) counter-clockwise by 90 degrees.
-
+  """Rotate image counter-clockwise by 90 degrees `k` times.
+  
+  Rotates single image by 90 degrees `k` times.
 
   For example:
-  ```python
-  a=tf.constant([[[1],[2]],[[3],[4]]])
-  # rotating `a` counter clockwise by 90 degrees
-  a_rot=tf.image.rot90(a,k=1) #rotated `a`
-  print(a_rot) # [[[2],[4]],[[1],[3]]]
-  ```
+  
+  >>> a = tf.constant([[[1],[2]],[[3],[4]]]) # Image of shape TensorShape([2, 2, 1])
+  >>> tf.image.rot90(a, k=1) # Rotate 'a' by 90 degrees
+  <tf.Tensor: id=..., shape=(2, 2, 1), dtype=int32, numpy=
+array([[[2],
+        [4]],
+
+       [[1],
+        [3]]], dtype=int32)>
+
   Args:
     image: 4-D Tensor of shape `[batch, height, width, channels]` or 3-D Tensor
       of shape `[height, width, channels]`.
@@ -539,7 +546,7 @@ def rot90(image, k=1, name=None):
     name: A name for this operation (optional).
 
   Returns:
-    A rotated tensor of the same type and shape as `image`.
+    A rotated Tensor of the same type and shape as `image`.
 
   Raises:
     ValueError: if the shape of `image` not supported.
@@ -627,16 +634,31 @@ def _rot90_4D(images, k, name_scope):
 def transpose(image, name=None):
   """Transpose image(s) by swapping the height and width dimension.
 
+  Example:
+
+  >>> image = tf.constant([[[1 , 2,  3],
+                            [4 , 5,  6]],
+                           [[7 , 8,  9],
+                            [10, 11, 12]]])
+  >>> tf.image.transpose(image)
+  <tf.Tensor: id=..., shape=(2, 2, 3), dtype=int32, numpy=
+array([[[ 1,  2,  3],
+        [ 7,  8,  9]],
+
+       [[ 4,  5,  6],
+        [10, 11, 12]]], dtype=int32)>
+
   Args:
     image: 4-D Tensor of shape `[batch, height, width, channels]` or 3-D Tensor
       of shape `[height, width, channels]`.
     name: A name for this operation (optional).
 
   Returns:
-    If `image` was 4-D, a 4-D float Tensor of shape
-   `[batch, width, height, channels]`
-    If `image` was 3-D, a 3-D float Tensor of shape
-   `[width, height, channels]`
+    If `image` was 4-D, a 4-D Tensor of shape
+   `[batch, width, height, channels]` and same type.
+   
+    If `image` was 3-D, a 3-D Tensor of shape
+   `[width, height, channels]` and same type
 
   Raises:
     ValueError: if the shape of `image` not supported.
@@ -1779,8 +1801,8 @@ def convert_image_dtype(image, dtype, saturate=False, name=None):
   casting.
 
   Note that converting from floating point inputs to integer types may lead to
-  over/underflow problems. Set saturate to `True` to avoid such problem in
-  problematic conversions. If enabled, saturation will clip the output into the
+  over/underflow problems. Set `saturate` to `True` to avoid such problems
+  during conversions. If enabled, saturation will clip the output into the
   allowed range before performing a potentially dangerous cast (and only before
   performing such a cast, i.e., when casting from a floating point to an integer
   type, and when casting from a signed to an unsigned type; `saturate` has no
@@ -1793,14 +1815,14 @@ def convert_image_dtype(image, dtype, saturate=False, name=None):
     name: A name for this operation (optional).
 
   Returns:
-    `image`, converted to `dtype`.
+    image: `image` converted to `dtype`.
 
   Usage Example:
-    ```python
-    >> import tensorflow as tf
-    >> x = tf.random.normal(shape=(256, 256, 3), dtype=tf.float32)
-    >> tf.image.convert_image_dtype(x, dtype=tf.float16, saturate=False)
-    ```
+  
+  >>> x = tf.random.normal(shape=(256, 256, 3), dtype=tf.float32) # 256 x 256 RGB image array.
+  >>> tf.image.convert_image_dtype(x, dtype=tf.float16, saturate=False)
+  <tf.Tensor: id=..., shape=(256, 256, 3), dtype=float16, numpy=
+array([...], dtype=float16)>
 
   Raises:
     AttributeError: Raises an attribute error when dtype is neither
