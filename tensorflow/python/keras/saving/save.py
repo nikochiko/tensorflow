@@ -24,7 +24,6 @@ import sys
 import six
 
 from tensorflow.python import tf2
-from tensorflow.python.keras.engine.network import _is_hdf5_filepath
 from tensorflow.python.keras.saving import hdf5_format
 from tensorflow.python.keras.saving.saved_model import load as saved_model_load
 from tensorflow.python.keras.saving.saved_model import save as saved_model_save
@@ -39,6 +38,9 @@ try:
 except ImportError:
   h5py = None
 # pylint: enable=g-import-not-at-top
+
+_HDF5_EXTENSIONS = ['.h5', '.hdf5', '.keras']
+
 
 # TODO(kathywu): Remove this when Keras SavedModel is not experimental.
 _KERAS_SAVED_MODEL_STILL_EXPERIMENTAL = True
