@@ -502,7 +502,7 @@ def broadcast_dynamic_shape(shape_x, shape_y):
 
   >>> shape_x = [1, 2, 3]
   >>> shape_y = [5, 1, 3]
-  >>> tf.broadcast_dynamic_shape(shape_x, shape_y)
+  >>> broadcast_dynamic_shape(shape_x, shape_y)
   <tf.Tensor: id=..., shape=(3,), dtype=int32, numpy=array([5, 2, 3], dtype=int32)>
 
   Args:
@@ -537,7 +537,7 @@ def broadcast_static_shape(shape_x, shape_y):
 
   >>> shape_x = tf.TensorShape([1, 2, 3])
   >>> shape_y = tf.TensorShape([5, 1 ,3])
-  >>> tf.broadcast_static_shape(shape_x, shape_y)
+  >>> broadcast_static_shape(shape_x, shape_y)
   TensorShape([Dimension(5), Dimension(2), Dimension(3)])
 
   Args:
@@ -1641,12 +1641,12 @@ def boolean_mask(tensor, mask, name="boolean_mask", axis=None):
   # 1-D example
   tensor = [0, 1, 2, 3]
   mask = np.array([True, False, True, False])
-  tf.boolean_mask(tensor, mask)  # [0, 2]
+  boolean_mask(tensor, mask)  # [0, 2]
 
   # 2-D example
   tensor = [[1, 2], [3, 4], [5, 6]]
   mask = np.array([True, False, True])
-  tf.boolean_mask(tensor, mask)  # [[1, 2], [5, 6]]
+  boolean_mask(tensor, mask)  # [[1, 2], [5, 6]]
   ```
 
   Args:
@@ -1725,12 +1725,12 @@ def boolean_mask_v2(tensor, mask, axis=None, name="boolean_mask"):
 
   >>> tensor = [0, 1, 2, 3]  # 1-D example
   >>> mask = np.array([True, False, True, False])
-  >>> tf.boolean_mask(tensor, mask)
+  >>> boolean_mask(tensor, mask)
   <tf.Tensor: id=..., shape=(2,), dtype=int32, numpy=array([0, 2], dtype=int32)>
 
   >>> tensor = [[1, 2], [3, 4], [5, 6]] # 2-D example
   >>> mask = np.array([True, False, True])
-  >>> tf.boolean_mask(tensor, mask)
+  >>> boolean_mask(tensor, mask)
   <tf.Tensor: id=..., shape=(2, 2), dtype=int32, numpy=array([[1, 2], [5, 6]], dtype=int32)>
 
   Args:
@@ -3455,7 +3455,7 @@ def edit_distance(hypothesis, truth, normalize=True, name="edit_distance"):
   ...    [1, 1, 0]],
   ...    ["a", "b", "c", "a"],
   ...    (2, 2, 2))
-  >>> tf.edit_distance(hypothesis, truth, normalize=True)
+  >>> edit_distance(hypothesis, truth, normalize=True)
   <tf.Tensor: id=..., shape=(2, 2), dtype=float32, numpy=
   array([[inf, 1. ],
          [0.5, 1. ]], dtype=float32)>
